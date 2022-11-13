@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block document_all %}
+<h2>All Documents</h2>
+<hr>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Time uploaded</th>
+            <th>Date uploaded</th>
+            <th>Local Path</th>
+            <th>Created by</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for doc in page_obj %}
+        <tr>
+            <td>{{doc.title}}</td>
+            <td>{{doc.author}}</td>
+            <td>{{doc.time_uploaded}}</td>
+            <td>{{doc.date_uploaded}}</td>
+            <td>{{doc.path}}</td>
+            <td>{{doc.created_by}}</td>
+            <td><a href="{% url 'document_edit' doc.id %}"><button>Edit</button></a></td>
+            <td>
+                <form method="post" action="{% url 'document_delete' doc.id %}">
+                    {% csrf_token %}
+                    <button>Delete</button>
+                </form>
+                
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr>
+<a href="{% url 'document_add' %}"><button>Add new document</button></a>
+<hr>
+<a href="{% url 'logout' %}"><button>Logout</button></a><br><br>
+<div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+      <a href="?page=1"><button>First</button></a>
+      <a href="?page={{ page_obj.previous_page_number }}"><button>Previous</button></a>
+      {% endif %}
+  
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+  
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}"><button>Next</button></a>
+      <a href="?page={{ page_obj.paginator.num_pages }}"><button>Last</button></a>
+      {% endif %}
+    </span>
+  </div>
+{% endblock %}

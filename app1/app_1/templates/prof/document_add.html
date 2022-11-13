@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+ {% block document_add %}
+
+<form method="POST" enctype="multipart/form-data">
+  {{ form.as_p }}
+  {% csrf_token %}
+  <input type="file" name="document" /><br><br>
+  <input type="submit" value="Add document" />
+</form>
+<br>
+<a href="{% url 'document_all' %}"><button>Cancel</button></a>
+<hr>
+
+<a href="{% url 'logout' %}"><button>Logout</button></a>
+{% endblock%}

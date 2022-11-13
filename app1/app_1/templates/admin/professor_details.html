@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block professor_details %}
+<p><b>Professor name:</b> {{ data.first_name }} {{ data.last_name }} </p>
+
+<p><b>Documents this professor has created:</b></p>
+<ul>
+    {% for item in docs %}
+        <li><b>Title: {{item.title }}</b><br>Author: {{item.author }}<br>Time of last edit:  {{item.last_edited}} </li>
+    {% endfor %}
+</ul>
+<hr>
+<a href="{% url 'document_count' %}"><button>Return</button></a>
+{% endblock %}

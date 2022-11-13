@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+ {% block document_edit %}
+<form method="POST">
+  <h2>Share document with:</h2>
+  
+  <table width="400px">
+  <tr><th>Name</th><th>Username</th><th>Sharing</th></tr>
+    {% for user in users %}
+      <tr>
+      <td width="200px" for="connection">{{user.first_name}} {{user.last_name}}</td><td width="50px">{{ user.username }}</td>
+      {% if user.shared == false %}
+      <td width="25px"><input type="checkbox" name="{{user.id}}" id="connection" /></td>
+      {% endif %}
+      {% if user.shared %}
+      <td width="25px"><input checked type="checkbox" name="{{user.id}}" id="connection" /></td>
+      {% endif %}
+      </tr>
+    {% endfor %} {% csrf_token %}
+  </table>
+  
+  <br>
+  <input type="submit" value="Submit" />
+</form>
+<br>
+<a href="{% url 'document_all' %}"><button>Return</button></a>
+<hr>
+<a href="{% url 'logout' %}"><button>Logout</button></a>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block document_count %}
+<h2>Number of documents per professor:</h2>
+<table>
+    <th>First name</th><th>Last name</th><th>Count</th>
+        {% for p in prof %}
+            <tr>
+                <td>{{p.first_name}}</td><td>{{p.last_name}}</td><td> {{p.num_docs}}</td>
+                <td><a href="{% url 'professor_details' p.id %}"><button>Details</button></a></td>
+            </tr>       
+        {% endfor %}
+</table>
+<hr>
+<a href="{% url 'home' %}"><button>Return</button></a>
+{% endblock %}

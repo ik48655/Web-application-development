@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block home %}
+    <h2>Welcome {{request.user.first_name}}!</h2>
+    {% if request.user.role_id == 1 %}
+    <a href="{% url 'user_all' %}"><button>All users</button></a><br><br>
+    <a href="{% url 'document_count' %}"><button>Number of documents per professor</button></a><br><br>
+    <a href="{% url 'student_count' %}"><button>Number of students per document</button></a>
+    {% elif request.user.role_id == 2 %}
+    <a href="{% url 'document_list_shared' %}"><button>Your shared documents</button></a>
+    {% elif request.user.role_id == 3 %}
+    <a href="{% url 'document_all' %}"><button>All documents</button></a>
+    {% endif %}
+    <hr>
+    <a href="{% url 'logout' %}"><input type="submit" value="Log out"></a><br>
+{% endblock %}

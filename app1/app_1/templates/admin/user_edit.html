@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block user_edit %}
+<form method="post">
+    <h2>Edit user: </h2>
+    <table>
+        <tr><td>Username:</td><td> {{form.username}} <br></td></tr>
+        <tr><td>Password: </td><td>{{form.password}} <br></td></tr>
+        <tr><td>Email: </td><td>{{form.email}} <br></td></tr>
+        <tr><td>First name: </td><td>{{form.first_name}} <br></td></tr>
+        <tr><td>Last name: </td><td>{{form.last_name}} <br></td></tr>
+        <tr><td>Role: </td><td>{{form.role}}</td></tr>
+    </table>
+        
+    <br>
+    <input type="submit" value="Update">
+    {% csrf_token %}
+</form>
+<hr>
+<a href="{% url 'user_all' %}"><button>Return</button></a>
+{% endblock %}

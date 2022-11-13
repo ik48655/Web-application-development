@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block document_list_shared %}
+
+<h2>All Documents</h2>
+<a href="{% url 'document_list_shared' sort='-time' %}"><button>Sort by time uploaded</button></a>
+<a href="{% url 'document_list_shared' sort='-date' %}"><button>Sort by date uploaded</button></a>
+<a href="{% url 'document_list_shared' sort='-title' %}"><button>Sort by name</button></a>
+<hr>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Time uploaded</th>
+            <th>Date uploaded</th>
+            <th>Created by</th>
+            <th>Download</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for doc in page_obj %}
+        <tr>
+            <td>{{doc.title}}</td>
+            <td>{{doc.author}}</td>
+            <td>{{doc.time_uploaded}}</td>
+            <td>{{doc.date_uploaded}}</td>
+            <td>{{doc.created_by}}</td>
+            <td>
+                <a href="{{ doc.path }}" target="_blank" ><button>Download</button></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr>
+<a href="{% url 'logout' %}"><button>Logout</button></a><br><br>
+<div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+      <a href="?page=1"><button>First</button></a>
+      <a href="?page={{ page_obj.previous_page_number }}"><button>Previous</button></a>
+      {% endif %}
+  
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+  
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}"><button>Next</button></a>
+      <a href="?page={{ page_obj.paginator.num_pages }}"><button>Last</button></a>
+      {% endif %}
+    </span>
+  </div>
+{% endblock %}

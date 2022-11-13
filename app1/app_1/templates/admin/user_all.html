@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block user_all %}
+<h2>All users</h2>
+<hr>
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for u in page_obj %}
+        <tr>
+            <td>{{u.username}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.first_name}}</td>
+            <td>{{u.last_name}}</td>
+            <td>{{u.role}}</td>
+            <td style="border: 1px solid">
+                <a href="{% url 'user_edit' u.id %}"><input type="submit" value="Edit"></a>
+            </td>
+            <td style="border: 1px solid">
+                <a href="{% url 'user_delete' u.id %}"><input type="submit" value="Delete"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr>
+<a href="{% url 'user_add' %}"><button>Add new user</button></a> 
+<a href="{% url 'logout' %}"><input type="submit" value="Log out"></a><br>
+<hr>
+<div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+      <a href="?page=1"><button>First</button></a>
+      <a href="?page={{ page_obj.previous_page_number }}"><button>Previous</button></a>
+      {% endif %}
+  
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+  
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}"><button>Next</button></a>
+      <a href="?page={{ page_obj.paginator.num_pages }}"><button>Last</button></a>
+      {% endif %}
+    </span>
+</div>
+<br>
+<a href="{% url 'home' %}"><button>Return</button></a>
+{% endblock %}

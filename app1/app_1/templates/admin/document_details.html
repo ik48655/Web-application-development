@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block document_details %}
+<p><b>Document title:</b> {{ data.title }} </p>
+<p><b>Document author:</b> {{ data.author }}</p>
+<p><b>Created by:</b> {{ data.created_by }} [ {{data.created_by.first_name}} {{data.created_by.last_name}} ]</p>
+
+<p><b>Students this document is shared with:</b></p>
+<ul>
+    {% for item in users %}
+        <li>{{item.student_id.first_name }} {{item.student_id.last_name}}</li>
+    {% endfor %}
+</ul>
+<hr>
+<a href="{% url 'student_count' %}"><button>Return</button></a>
+{% endblock %}
